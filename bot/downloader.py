@@ -4,9 +4,10 @@ import asyncio
 import logging
 import shutil
 import uuid
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 import yt_dlp
 
@@ -186,7 +187,7 @@ class MediaDownloader:
                     info.get("webpage_url"), info.get("original_url"), url, default=url
                 )
                 duration_raw = info.get("duration")
-                duration = int(duration_raw) if isinstance(duration_raw, (int, float)) else None
+                duration = int(duration_raw) if isinstance(duration_raw, int | float) else None
 
                 album = self._optional_text(info.get("album"))
                 genre = self._optional_text(info.get("genre"))
@@ -242,7 +243,7 @@ class MediaDownloader:
     def _optional_int(value: object) -> int | None:
         if isinstance(value, bool):
             return None
-        if isinstance(value, (int, float)):
+        if isinstance(value, int | float):
             return int(value)
         return None
 

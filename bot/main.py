@@ -27,7 +27,6 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> N
     logger.error("Unhandled Telegram update error", exc_info=context.error)
 
 
-
 def main() -> None:
     settings = Settings.from_env()
     settings.download_dir.mkdir(parents=True, exist_ok=True)

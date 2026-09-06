@@ -77,9 +77,8 @@ class BotHandlers:
             )
             return
 
-        async with user_lock:
-            async with self.semaphore:
-                await self._process_url(update, context, url)
+        async with user_lock, self.semaphore:
+            await self._process_url(update, context, url)
 
     async def _process_url(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE, url: str
@@ -175,7 +174,7 @@ class BotHandlers:
                     "to the bot log."
                 )
             except Exception:
-                pass
+                logger.debug("Failed to update error status", exc_info=True)
         finally:
             self.downloader.cleanup(result)
 

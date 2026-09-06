@@ -1,4 +1,10 @@
-from bot.utils import clean_yt_dlp_error, first_nonempty, format_duration, human_size, is_valid_http_url
+from bot.utils import (
+    clean_yt_dlp_error,
+    first_nonempty,
+    format_duration,
+    human_size,
+    is_valid_http_url,
+)
 
 
 def test_valid_url() -> None:

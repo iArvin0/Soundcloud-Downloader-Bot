@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
 import re
+from contextlib import suppress
+from pathlib import Path
 from urllib.parse import urlparse
 
 
@@ -45,10 +46,8 @@ def first_nonempty(*values: object, default: str = "Unknown") -> str:
 def safe_unlink(path: Path | None) -> None:
     if path is None:
         return
-    try:
+    with suppress(OSError):
         path.unlink(missing_ok=True)
-    except OSError:
-        pass
 
 
 def clean_yt_dlp_error(message: str) -> str:
